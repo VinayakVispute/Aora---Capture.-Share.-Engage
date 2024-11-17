@@ -153,3 +153,20 @@ export const getCurrentUser = async (): Promise<Models.Document> => {
     throw new AuthError(errorMessage);
   }
 };
+
+export const signOut = async () => {
+  try {
+    const session = await appwriteService.account.deleteSession("current");
+
+    return session;
+  } catch (error: any) {
+    console.log(error);
+    const errorMessage =
+      error.type && error.type in ErrorMessages
+        ? ErrorMessages[error.type as keyof typeof ErrorMessages]
+        : ErrorMessages.something_went_wrong;
+
+    console.error("Mapped ErrorMessage:", errorMessage);
+    throw new AuthError(errorMessage);
+  }
+};

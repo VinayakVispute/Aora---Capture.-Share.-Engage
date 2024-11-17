@@ -56,3 +56,20 @@ export const searchPosts = async (
     throw new PostError("Failed to fetch posts", error);
   }
 };
+
+export const getUserPosts = async (
+  userId: string
+): Promise<Models.Document[]> => {
+  try {
+    const posts = await databases.listDocuments(
+      DATABASE_ID,
+      VIDEOS_COLLECTION_ID,
+      [Query.equal("creator", userId)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    console.error(error);
+    throw new PostError("Failed to fetch posts", error);
+  }
+};
