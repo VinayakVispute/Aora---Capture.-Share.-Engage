@@ -117,8 +117,10 @@ export const uploadFile = async (file: any, type: string) => {
   const { mimeType, ...rest } = file;
 
   const asset = {
-    type: mimeType,
-    ...rest,
+    name: file.fileName,
+    type: file.mimeType,
+    size: file.fileSize,
+    uri: file.uri,
   };
 
   try {
