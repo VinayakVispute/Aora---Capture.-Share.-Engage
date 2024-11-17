@@ -22,7 +22,8 @@ export const getAllPosts = async (): Promise<Models.Document[]> => {
   try {
     const posts = await databases.listDocuments(
       DATABASE_ID,
-      VIDEOS_COLLECTION_ID
+      VIDEOS_COLLECTION_ID,
+      [Query.orderDesc("$createdAt"), Query.limit(7)]
     );
 
     return posts.documents;
