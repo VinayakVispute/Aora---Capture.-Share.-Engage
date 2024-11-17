@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Image, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+  Alert,
+} from "react-native";
 
 import useAppwrite from "@/hooks/useAppwrite";
 import VideoCard from "@/components/VideoCard";
@@ -10,10 +17,28 @@ import { getUserPosts } from "@/lib/actions/post.action";
 import { signOut } from "@/lib/actions/user.action";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { icons } from "@/constants";
+import { useState } from "react";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
-  const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
+  const { data: posts, refetch } = useAppwrite(() => getUserPosts(user.$id));
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await refetch();
+    } catch (error: any) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+
+      Alert.alert("Failed to refresh posts", errorMessage, [{ text: "OK" }]);
+
+      console.error("[Refresh Error]:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const logout = async () => {
     await signOut();
@@ -89,6 +114,9 @@ const Profile = () => {
             </View>
           </View>
         )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
