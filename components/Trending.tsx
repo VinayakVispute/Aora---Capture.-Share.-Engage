@@ -33,11 +33,7 @@ const zoomOut: Animatable.CustomAnimation = {
 
 interface TrendingItemProps {
   activeItem: Post;
-  item: {
-    $id: string;
-    thumbnail: string;
-    video: string;
-  };
+  item: Post;
 }
 
 const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
@@ -58,6 +54,7 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
             useNativeControls
             shouldPlay
             onPlaybackStatusUpdate={(status) => {
+              //@ts-ignore
               if (status.didJustFinish) {
                 setPlay(false);
               }
@@ -99,6 +96,7 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
 interface Post {
   $id: string;
   thumbnail: string;
+  video: string;
 }
 
 interface TrendingProps {
