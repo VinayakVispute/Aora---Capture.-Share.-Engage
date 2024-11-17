@@ -40,3 +40,19 @@ export const getLatestPosts = async (): Promise<Models.Document[]> => {
     throw new PostError("Failed to fetch posts", error);
   }
 };
+
+export const searchPosts = async (
+  query: string
+): Promise<Models.Document[]> => {
+  try {
+    const posts = await databases.listDocuments(
+      DATABASE_ID,
+      VIDEOS_COLLECTION_ID,
+      [Query.search("title", query)]
+    );
+    return posts.documents;
+  } catch (error) {
+    console.error(error);
+    throw new PostError("Failed to fetch posts", error);
+  }
+};
