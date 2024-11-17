@@ -13,8 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/logo-small.png"
       },
       "package": "co.visputevinayak.aora"
     },
@@ -28,7 +27,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/logo-small.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
