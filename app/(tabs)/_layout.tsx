@@ -3,6 +3,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 
 import { icons } from "@/constants";
+import { StatusBar } from "expo-status-bar";
 
 interface TabIconProps {
   icon: any;
@@ -43,7 +44,7 @@ const TabsLayout = () => {
             paddingBottom: 6,
             paddingTop: 8,
             backgroundColor: "#161622",
-            borderTopWidth: 1,
+            borderTopWidth: 0,
             borderTopColor: "#232533",
             height: 84,
           },
@@ -116,6 +117,7 @@ const TabsLayout = () => {
           }}
         />
       </Tabs>
+      <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
 };
