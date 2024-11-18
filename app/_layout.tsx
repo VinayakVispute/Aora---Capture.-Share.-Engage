@@ -3,6 +3,7 @@ import { Stack, SplashScreen } from "expo-router";
 import "../global.css";
 import { useFonts } from "expo-font";
 import GlobalProvider from "@/context/GlobalProvider";
+import { Alert } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,8 +21,14 @@ const RootLayout = () => {
   });
 
   useEffect(() => {
-    if (error) throw error;
-    if (fontsLoaded) SplashScreen.hideAsync();
+    if (error) {
+      Alert.alert("Error", error.message);
+      return;
+    }
+    if (fontsLoaded) {
+      Alert.alert("Success", "Fonts loaded");
+      SplashScreen.hideAsync();
+    }
   }, [fontsLoaded, error]);
 
   if (!fontsLoaded && !error) return null;

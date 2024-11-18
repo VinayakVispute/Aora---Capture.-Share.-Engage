@@ -136,14 +136,15 @@ export const getCurrentUser = async (): Promise<Models.Document> => {
       [Query.equal("accountId", currentAccount.$id)]
     );
 
-    if (!currentUser) {
+    if (!currentUser.documents.length) {
       console.error("Failed to fetch user document");
       throw new AuthError(ErrorMessages.user_not_found);
     }
 
     return currentUser.documents[0];
   } catch (error: any) {
-    console.log(error);
+    console.log(error.response);
+
     const errorMessage =
       error.type && error.type in ErrorMessages
         ? ErrorMessages[error.type as keyof typeof ErrorMessages]

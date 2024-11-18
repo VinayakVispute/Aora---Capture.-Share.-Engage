@@ -3,9 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -14,6 +12,9 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "babel.config.js",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "constants/images.js",
+    "constants/icons.js",
+    "constants/index.js"
   ]
 }
